@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 0;
+    }
+
+    .bg {
+      width: 200px;
+      height: 200px;
+      padding: 10px;
+      border: 10px solid #666;
+      background-image: url('http://www.w3school.com.cn/i/border.png');
+      /* 默认：padding-box */
+      background-origin: padding-box;
+      /* background-size: 100% 100%; */
+      /* 默认：border-box */
+      /* background-clip: border-box; */
+      /* 默认：0 0 */
+      /* background-position: 10px 10px; */
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      overflow: auto;
+    }
+
+    .bg-c {
+      width: 200px;
+      height: 100px;
+    }
+
+    .linear1 {
+      background: linear-gradient(0deg, blue 10%, red 50%, green 100%)
+    }
+
+    .linear2 {
+      background-image: repeating-linear-gradient(#ff0 0%, #f0f 15%);
+    }
+
+    .circle1 {
+      background: radial-gradient(circle at 50%, yellow 25%, green 50%, blue 75%, white 100%);
+    }
+
+    .circle2 {
+      background-image: repeating-radial-gradient(circle farthest-corner, #ff0 0%, #f0f 20%);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg">
+    <div style="height: 500px"></div>
+  </div>
+  <div class="bg-c linear1"></div>
+  <div class="bg-c linear2"></div>
+  <div class="bg-c circle1"></div>
+  <div class="bg-c circle2"></div>
+  <div style="height: 2000px"></div>
+</body>
+
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    @keyframes round {
+      from {
+        transform: rotateX(45deg) rotateY(45deg);
+      }
+
+      to {
+        transform: rotateX(405deg) rotateY(405deg);
+      }
+    }
+
+    :root,
+    body {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+      perspective: 800px;
+    }
+
+    .wrapper {
+      position: absolute;
+      left: calc(50% - 100px);
+      top: calc(50% - 100px);
+      width: 200px;
+      height: 200px;
+      transform-style: preserve-3d;
+      transform: rotateX(45deg) rotateY(45deg);
+      animation: round 3s 1s linear infinite;
+    }
+
+    .wrapper .child {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      line-height: 200px;
+      text-align: center;
+    }
+
+    .wrapper .child:nth-child(1) {
+      background-color: teal;
+      transform: translateZ(100px);
+    }
+
+    .wrapper .child:nth-child(2) {
+      background-color: thistle;
+      transform: translateZ(-100px);
+    }
+
+    .wrapper .child:nth-child(3) {
+      background-color: tomato;
+      transform: rotateY(90deg) translateZ(100px);
+    }
+
+    .wrapper .child:nth-child(4) {
+      background-color: turquoise;
+      transform: rotateY(-90deg) translateZ(100px);
+    }
+
+    .wrapper .child:nth-child(5) {
+      background-color: violet;
+      transform: rotateX(90deg) translateZ(100px);
+    }
+
+    .wrapper .child:nth-child(6) {
+      background-color: wheat;
+      transform: rotateX(-90deg) translateZ(100px);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="child">1</div>
+    <div class="child">2</div>
+    <div class="child">3</div>
+    <div class="child">4</div>
+    <div class="child">5</div>
+    <div class="child">6</div>
+  </div>
+
+  <script>
+    document.body.onmousemove = function (e) {
+      this.style.perspectiveOrigin = `${e.pageX}px ${e.pageY}px`;
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <!-- step-start：相当于去掉0%部分，直接显示50%，再显示100% -->
+  <!-- step-end：相当于去掉100%部分，直接显示0%，再显示50%，结束~ -->
+  <!-- steps(2, start)：相当于分成0%__25%__50%__75%__100%四部分，去掉0%~25%这一部分-->
+  <!-- steps(2, end)：相当于分成0%__25%__50%__75%__100%四部分，去掉75%~100%这一部分-->
+  <style>
+    div {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: blueviolet;
+      animation: rotate 2s 1s step-end both;
+    }
+
+    @keyframes rotate {
+      0% {
+        transform: scale(0.5);
+      }
+
+      50% {
+        transform: scale(1);
+      }
+
+      100% {
+        transform: scale(1.5);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div></div>
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .border-radius {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 10px;
+      background-color: goldenrod;
+    }
+
+    .border-radius1 {
+      border-radius: 20px 30px;
+    }
+
+    .border-radius2 {
+      border-radius: 20px 30px 20px 30px;
+    }
+
+    .border-radius3 {
+      border-radius: 20px 30px 20px 30px / 20px 30px 20px 30px;
+    }
+
+    .border-radius4 {
+      border-top-left-radius: 20px 20px;
+      border-top-right-radius: 30px 30px;
+      border-bottom-right-radius: 20px 20px;
+      border-bottom-left-radius: 30px 30px;
+    }
+
+    .border-image {
+      width: 200px;
+      height: 200px;
+      border: 100px solid black;
+      border-image-source: url('http://www.w3school.com.cn/i/border.png');
+      border-image-slice: 26;
+      /*加px无效，因为border-image-width可能加px，border-image-outset必须加px，所以为了连写，slice不能加px*/
+      border-image-repeat: stretch;
+      /*stretch repeat round space  
+                                  repeat不负责，如200px，会中间一个，另一个切成两个两边填
+                                  round是宽度超过某一块的一半，就会生成一个多的来挤，如150px来挤三个原本100px的
+                                  space和round类似，只不过是当两边的宽度和超过某一块本身时，就会生成一个多的，如200px两边的50px空白没了，生成两个原本100px的
+                                */
+      border-image-width: 50px;
+      /*如果没加px，则表示为border-width的x倍，
+                              如果加了px，则表示边框图片实际宽度，
+                              如果是auto，则使用的是slice的值加px*/
+      border-image-outset: 100px;
+      /*四个角向外扩张，负值无效，不加px无效*/
+    }
+  </style>
+</head>
+
+<body>
+  <h3>左上/右下 右上/左下</h3>
+  <div class="border-radius border-radius1"></div>
+  <h3>左上 右上 右下 左下</h3>
+  <div class="border-radius border-radius2"></div>
+  <h3>左上二 右上二 右下二 左下二 / 左上一 右上一 右下一 左下一</h3>
+  <div class="border-radius border-radius3"></div>
+  <h3>同三</h3>
+  <div class="border-radius border-radius4"></div>
+  <hr>
+  <h3>border-image</h3>
+  <div class="border-image"></div>
+</body>
+
+</html>
