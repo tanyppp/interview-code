@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    /*
+      特点：
+      1、不连续
+      2、每存一个值，多一个引用开销
+
+      优点：
+      1、方便利用内存碎片
+      2、删除和新增方便
+
+      缺点：
+      1、不便于遍历
+      2、每存一个值多一个开销（如果引用值远大于该引用开销，可忽略此缺点）
+    */
+
+    function Node(value) {
+      this.value = value;
+      this.next = null;
+    }
+
+    const a = new Node('a');
+    const b = new Node('b');
+    const c = new Node('c');
+
+    a.next = b;
+    b.next = c;
+
+    // 列表的遍历
+    // 1、循环遍历
+    function loop1(head = new Node(''), callback = () => { }) {
+      if (head == null) {
+        return;
+      }
+
+      while (head) {
+        callback(head);
+        head = head.next;
+      }
+    }
+
+    // 2、递归遍历，易于解读
+    function loop2(head = new Node(''), callback = () => { }) {
+      if (head) {
+        callback(head);
+        loop2(head.next, callback);
+      }
+    }
+
+    loop1(a, console.log);
+    loop2(a, console.log);
+
+    // 扩展：列表的逆反
+    function reverseList(head = new Node('')) {
+      if (!head || !head.next) {
+        return head;
+      }
+
+      if (head.next.next) {
+        const result = reverseList(head.next);
+        head.next.next = head;
+        head.next = null;
+
+        // 将头返回出去
+        return result;
+      } else {
+        // 列表的前一个
+        head.next.next = head;
+        return head.next;
+      }
+    }
+
+    console.log(a);
+    console.log(reverseList(a));
+  </script>
+</body>
+
+</html>

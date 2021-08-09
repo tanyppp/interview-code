@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    /*
+      数组的特点：
+      1、连续且固定的空间
+
+      优点：
+      1、遍历快
+
+      缺点：
+      1、空间大不易申请
+      2、删除和新增困难
+    */
+
+    // 申请一个数组
+    // 1、字面量
+    const arr1 = [1, 2, 3, 4, 5];
+    // 2、new
+    const arr2 = new Array(5);
+
+    // 遍历数组
+    // 1、最快，循环
+    function loop1(arr = [], callback = () => { }) {
+      for (let i = 0, len = arr.length; i < len; i++) {
+        callback(arr[i], i);
+      }
+    }
+    // 2、递归，不太推荐，因为数组的优势就是循环遍历
+    function loop2(arr = [], callback = () => { }, i = 0) {
+      if (i < arr.length) {
+        callback(arr[i], i);
+        loop2(arr, callback, i + 1);
+      }
+    }
+
+    loop1(arr1, console.log);
+    loop2(arr1, console.log);
+  </script>
+</body>
+
+</html>

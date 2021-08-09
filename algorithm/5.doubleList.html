@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script async>
+    /*
+      双向链表
+      特点：
+      1、链表的一种
+      2、有两个指针
+
+      优点：
+      1、方便增、删
+      2、方便查询
+
+      缺点：
+      1、一个值两个引用空间
+    */
+
+    function DoubleLink(value) {
+      this.value = value;
+      this.prev = null;
+      this.next = null;
+    }
+
+    const a = new DoubleLink('a');
+    const b = new DoubleLink('b');
+    const c = new DoubleLink('c');
+
+    a.next = b;
+    b.prev = a;
+    b.next = c;
+    c.prev = b;
+
+    console.log(a);
+
+    // window.onload = function () {
+    //   alert('window onload');
+    // }
+
+    // document.addEventListener('DOMContentLoaded', function () {
+    //   alert('DOMContentLoaded');
+    // }, false);
+  </script>
+</body>
+
+</html>

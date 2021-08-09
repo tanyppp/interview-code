@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    /*
+      特点：
+      1、线性结构
+      2、只允许表尾添加和删除
+    */
+    function Stack() {
+      this.arr = [];
+      this.push = function () {
+        this.arr.push.apply(this.arr, arguments);
+      }
+      this.pop = function () {
+        this.arr.pop();
+      }
+    }
+
+    /*
+      特点：
+      1、线性结构
+      2、只允许表头添加和删除
+    */
+    function Queue() {
+      this.arr = [];
+      this.push = function () {
+        this.arr.unshift.apply(this.arr, arguments);
+      }
+      this.pop = function () {
+        this.arr.shift();
+      }
+    }
+
+    const stack = new Stack();
+    stack.push(1);
+    stack.push(2);
+    stack.push(3);
+    stack.pop();
+    console.log(stack);
+
+    const queue = new Queue();
+    queue.push(1);
+    queue.push(2);
+    queue.push(3);
+    queue.pop();
+    console.log(queue);
+  </script>
+</body>
+
+</html>
