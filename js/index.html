@@ -6,12 +6,19 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <script src="./asyncScript.js" async></script>
+  <script src="./deferScript.js" defer></script>
 </head>
 
 <body>
   <input id="debounceIpt" type="text" placeholder="debounce">
   <button id="throttleBtn">throttle</button>
   <script type="module" src="./index.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      alert('DOMContentLoaded');
+    }, false);
+  </script>
 </body>
 
 </html>
