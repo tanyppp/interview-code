@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function Node(value) {
+      this.value = value;
+      this.left = null;
+      this.right = null;
+    }
+
+    /*
+          a
+        b     c
+      d   e f   g
+    */
+    const a = new Node('a');
+    const b = new Node('b');
+    const c = new Node('c');
+    const d = new Node('d');
+    const e = new Node('e');
+    const f = new Node('f');
+    const g = new Node('g');
+
+    a.left = b;
+    a.right = c;
+    b.left = d;
+    b.right = e;
+    c.left = f;
+    c.right = g;
+
+    const a1 = new Node('a')
+    const b1 = new Node('b')
+    const c1 = new Node('c')
+    const d1 = new Node('d')
+    const e1 = new Node('e1')
+    const f1 = new Node('f')
+    const g1 = new Node('g1')
+    const h1 = new Node('h')
+    a1.left = b1
+    a1.right = c1
+    b1.left = d1
+    b1.right = e1
+    c1.left = f1
+    c1.right = g1
+    f1.left = h1
+
+    // 前序 abdecfg
+    function preOrder(root, callback) {
+      if (!root) {
+        return root;
+      }
+
+      callback(root.value);
+      preOrder(root.left, callback);
+      preOrder(root.right, callback);
+
+      return root;
+    }
+
+    // 中序 dbeafcg
+    function midOrder(root, callback) {
+      if (!root) {
+        return root;
+      }
+
+      midOrder(root.left, callback);
+      callback(root.value);
+      midOrder(root.right, callback);
+
+      return root;
+    }
+
+    // 后序 debfgca
+    function postOrder(root, callback) {
+      if (!root) {
+        return root;
+      }
+
+      postOrder(root.left, callback);
+      postOrder(root.right, callback);
+      callback(root.value);
+
+      return root;
+    }
+
+    // 根据前序、中序获取tree
+    function getTreeByPreAndMid(pre, mid) {
+      if (!pre || !mid) {
+        return null;
+      }
+
+      const root = pre[0];
+      const rootIndex = mid.indexOf(root);
+      const preLeft = pre.slice(1, rootIndex + 1);
+      const midLeft = mid.slice(0, rootIndex);
+      const preRight = pre.slice(rootIndex + 1);
+      const midRight = mid.slice(rootIndex + 1);
+      const left = getTreeByPreAndMid(preLeft, midLeft);
+      const right = getTreeByPreAndMid(preRight, midRight);
+      if (!left && !right) {
+        // 叶子节点
+        return new Node(root);
+      }
+      const rootNode = new Node(root);
+      rootNode.left = left;
+      rootNode.right = right;
+
+      return rootNode;
+    }
+
+    // 根据后序、中序获取tree
+    function getTreeByPostAndMid(post, mid) {
+      if (!post || !mid) {
+        return null;
+      }
+
+      const root = post[post.length - 1];
+      const rootIndex = mid.indexOf(root);
+      const postLeft = post.slice(0, rootIndex);
+      const midLeft = mid.slice(0, rootIndex);
+      const postRight = post.slice(rootIndex, post.length - 1);
+      const midRight = mid.slice(rootIndex + 1);
+      const left = getTreeByPostAndMid(postLeft, midLeft);
+      const right = getTreeByPostAndMid(postRight, midRight);
+      if (!left && !right) {
+        // 叶子节点
+        return new Node(root);
+      }
+      const rootNode = new Node(root);
+      rootNode.left = left;
+      rootNode.right = right;
+
+      return rootNode;
+    }
+
+    // 深度遍历
+    function deepSearch(root, target) {
+      if (!root) {
+        return false;
+      }
+
+      if (root.value === target) {
+        return true;
+      }
+
+      return deepSearch(root.left, target) || deepSearch(root.right, target);
+    }
+
+    // 广度遍历
+    function breadthSearch(root, target) {
+      if (!root) {
+        return false;
+      }
+
+      root = Array.isArray(root) ? root : [root];
+
+      if (!root.length) {
+        return false;
+      }
+
+      const nodeArr = [];
+      for (let i = 0; i < root.length; i++) {
+        if (root[i].value === target) {
+          return true;
+        }
+        root[i].left && nodeArr.push(root[i].left);
+        root[i].right && nodeArr.push(root[i].right);
+      }
+
+      return breadthSearch(nodeArr, target);
+    }
+
+    // 判断两棵树相等
+    function isTreeEq(root1, root2) {
+      if ((root1 && !root2) || (!root1 && root2)) {
+        return false;
+      }
+
+      if (root1 && root2) {
+        if (root1.value !== root2.value) {
+          return false;
+        }
+        return isTreeEq(root1.left, root2.left) && isTreeEq(root1.right, root2.right);
+      } else {
+        return true;
+      }
+    }
+
+    // diff
+    function diff(root1, root2) {
+      const patch = [];
+
+      function _diff(root1, root2, patch) {
+        if (root1 && !root2) {
+          patch.push({
+            type: '删除',
+            origin: root1,
+            target: root2
+          });
+        } else if (!root1 && root2) {
+          patch.push({
+            type: '新增',
+            origin: root1,
+            target: root2
+          });
+        } else if (root1 && root2) {
+          if (root1.value !== root2.value) {
+            patch.push({
+              type: '修改',
+              origin: root1,
+              target: root2
+            });
+          }
+          _diff(root1.left, root2.left, patch);
+          _diff(root1.right, root2.right, patch);
+        }
+      }
+
+      _diff(root1, root2, patch);
+
+      return patch;
+    }
+
+    preOrder(a, console.log);
+    console.log('---------');
+    midOrder(a, console.log);
+    console.log('---------');
+    postOrder(a, console.log);
+    console.log('---------');
+    console.log(getTreeByPreAndMid('abdecfg', 'dbeafcg'));
+    console.log(getTreeByPostAndMid('debfgca', 'dbeafcg'));
+    console.log(isTreeEq(a, a));
+    console.log(isTreeEq(a, a1));
+    console.log(deepSearch(a, 'g'));
+    console.log(breadthSearch(a, 'g'));
+    console.log(diff(a, a1));
+  </script>
+</body>
+
+</html>
