@@ -1,54 +1,5 @@
-function ajax(method = "get", url, data) {
-  return new Promise((resolve, reject) => {
-    method = method.toUpperCase();
-    let xhr;
-    if (window.XMLHttpRequest) {
-      xhr = new XMLHttpRequest();
-    } else {
-      xhr = new ActiveXObject("Microsoft.XMLHttp");
-    }
-
-    if (method === "GET") {
-      xhr.open(method, url + "?" + data, true);
-      xhr.send();
-    } else {
-      xhr.open(method, url, true);
-      xhr.send(data);
-    }
-
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState === 4 && xhr.status === 200) {
-        resolve(xhr);
-      }
-    };
-  });
-}
-
-function jsonp(url, callbackName, data) {
-  return new Promise((resolve, reject) => {
-    if (typeof data === "object") {
-      data = Object.keys(data)
-        .reduce((next, key) => {
-          next.push(`${key}=${data[key]}`);
-
-          return next;
-        }, [])
-        .join("&");
-    }
-
-    const script = document.createElement("script");
-    const callback = `jsonp912381`;
-    window[callback] = resolve;
-    script.src = `${url}?${callbackName}=${callback}&${data}`;
-    script.type = "application/javascript";
-    script.onload = function () {
-      delete window[callback];
-      document.body.removeChild(script);
-    };
-    script.onabort = script.onerror = reject;
-    document.body.appendChild(script);
-  });
-}
+import ajax from "./ajax.js";
+import jsonp from "./jsonp.js";
 
 ajax("get", "./index.html", "a=1").then((xhr) => {
   console.log(xhr);

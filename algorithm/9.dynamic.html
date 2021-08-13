@@ -76,8 +76,8 @@
 
       let result = 0;
 
-      for (let i = 0; i < n; i++) {
-        result += jump1(i);
+      for (let i = 1; i < n; i++) {
+        result += jump1(n - i);
       }
 
       // +1，是因为可以一跃而起直接到顶部
