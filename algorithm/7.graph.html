@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function Node(value) {
+      this.value = value;
+      this.neighbours = [];
+    }
+
+    const a = new Node('a');
+    const b = new Node('b');
+    const c = new Node('c');
+    const d = new Node('d');
+    const e = new Node('e');
+    const f = new Node('f');
+
+    const pointSet = [a, b, c, d, e, f];
+
+    const distanceSet = [
+      [0, 7, Infinity, 6, Infinity, Infinity],
+      [7, 0, 5, Infinity, Infinity, Infinity],
+      [Infinity, 5, 0, Infinity, 3, Infinity],
+      [6, Infinity, Infinity, 0, 8, 4],
+      [Infinity, Infinity, 3, 8, 0, 5],
+      [Infinity, Infinity, Infinity, 4, 5, 0]
+    ];
+
+    function prim(pointSet, distanceSet) {
+      const beginPoint = pointSet[0];
+      const targetPointSet = [beginPoint];
+      const getMinDis = pointItem => {
+        let minDis = Infinity;
+        let fromPoint;
+        const x = pointSet.indexOf(pointItem);
+        targetPointSet.forEach(targetItem => {
+          const y = pointSet.indexOf(targetItem);
+          if (distanceSet[x][y] < minDis) {
+            minDis = distanceSet[x][y];
+            fromPoint = targetItem;
+          }
+        });
+
+        return {
+          minDis,
+          fromPoint
+        }
+      }
+      while (targetPointSet.length < pointSet.length) {
+        let minDis = Infinity;
+        let minDisPoint;
+        let fromPoint;
+        pointSet.forEach(pointItem => {
+          if (targetPointSet.includes(pointItem)) {
+            return;
+          }
+          const result = getMinDis(pointItem);
+          if (result.minDis < minDis) {
+            minDisPoint = pointItem;
+            minDis = result.minDis;
+            fromPoint = result.fromPoint;
+          }
+        });
+        minDisPoint.neighbours.push(fromPoint);
+        fromPoint.neighbours.push(minDisPoint);
+        targetPointSet.push(minDisPoint);
+      }
+
+      return targetPointSet;
+    }
+
+    console.log(prim(pointSet, distanceSet));
+  </script>
+</body>
+
+</html>

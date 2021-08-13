@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 0 1 1 2 3 5 8 13 ...
+    // 斐波拉契数列
+
+    function febo(n) {
+      if (n === 0) {
+        return 0;
+      }
+      if (n === 1) {
+        return 1;
+      }
+
+      let a = 0;
+      let b = 1;
+      let c = a + b;
+
+      for (let i = 3; i <= n; i++) {
+        a = b;
+        b = c;
+        c = a + b;
+      }
+
+      return c;
+    }
+
+    function febo1(n) {
+      if (n === 0) {
+        return 0;
+      }
+      if (n === 1) {
+        return 1;
+      }
+
+      return febo1(n - 2) + febo1(n - 1);
+    }
+
+    // 青蛙跳台阶
+    // 一次跳1步或2步，n层台阶有多少种跳法
+    function jump(n) {
+      if (n <= 0) {
+        return 0;
+      }
+      if (n === 1) {
+        return 1;
+      }
+      if (n === 2) {
+        return 2;
+      }
+
+      return jump(n - 2) + jump(n - 1);
+    }
+
+    // 变态青蛙跳台阶
+    // 一次可能跳n步，n层台阶有多少种跳法
+    function jump1(n) {
+      if (n <= 0) {
+        return 0;
+      }
+      if (n === 1) {
+        return 1;
+      }
+      if (n === 2) {
+        return 2;
+      }
+
+      let result = 0;
+
+      for (let i = 0; i < n; i++) {
+        result += jump1(i);
+      }
+
+      // +1，是因为可以一跃而起直接到顶部
+      return result + 1;
+    }
+
+    console.log(febo(6));
+    console.log(febo1(6));
+
+    console.log(jump(3));
+    console.log(jump1(3));
+  </script>
+</body>
+
+</html>

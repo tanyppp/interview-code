@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    const arr = Array.from(new Array(10000), () => Math.floor(Math.random() * 10000));
+    let n = 0;
+    let n1 = 0;
+
+    function findNum(arr, num) {
+      for (let i = 0; i < arr.length; i++) {
+        n++;
+        if (arr[i] === num) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    function Node(value) {
+      this.value = value;
+      this.left = null;
+      this.right = null;
+    }
+
+    function buildNode(root, num) {
+      if (root.value === num) {
+        return;
+      }
+
+      if (root.value > num) {
+        if (root.left) {
+          buildNode(root.left, num);
+        }
+        else {
+          root.left = new Node(num);
+        }
+      } else {
+        if (root.right) {
+          buildNode(root.right, num);
+        }
+        else {
+          root.right = new Node(num);
+        }
+      }
+    }
+
+    function buildSearchTree(arr = []) {
+      if (!arr || !arr.length) {
+        return;
+      }
+
+      const root = new Node(arr[0]);
+
+      for (let i = 0; i < arr.length; i++) {
+        buildNode(root, arr[i]);
+      }
+
+      return root;
+    }
+
+    function searchTree(root, num) {
+      if (!root) {
+        return false;
+      }
+
+      n1++;
+
+      if (root.value === num) {
+        return true;
+      }
+
+      let result = false;
+
+      if (root.value < num) {
+        result |= searchTree(root.right, num);
+      }
+      else {
+        result |= searchTree(root.left, num);
+      }
+
+      return !!result;
+    }
+
+    const root = buildSearchTree(arr);
+
+    console.log(root);
+
+    findNum(arr, 1000);
+    searchTree(root, 1000);
+
+    console.log(n);
+    console.log(n1);
+  </script>
+</body>
+
+</html>
