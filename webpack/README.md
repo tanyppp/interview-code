@@ -1,0 +1,12 @@
+# webpack执行过程
+* 读取配置文件
+* 创建插件hook
+* 绑定插件hook
+* 执行run时
+  + 递归构建模块依赖
+    - 解析每个文件时，如果loader匹配，执行loader
+    - 利用babylon，解析文件源码为AST
+    - 利用@babel/traverse进行AST遍历
+    - 利用@babel/types进行AST属性修改
+    - 利用@babel/generator将修改后的AST生成源码
+  + 根据出口和模块依赖生成发射文件
